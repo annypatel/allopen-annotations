@@ -1,0 +1,163 @@
+apply plugin: 'maven-publish'
+apply plugin: 'digital.wup.android-maven-publish'
+apply plugin: 'signing'
+
+["SONATYPE_NEXUS_USERNAME", "SONATYPE_NEXUS_PASSWORD"].each {
+    checkAndDefaultProperty(it)
+}
+
+["signing.keyId", "signing.password", "signing.secretKeyRingFile"].each {
+    checkProperty(it)
+}
+
+def checkAndDefaultProperty(prop) {
+    if (!project.hasProperty(prop)) {
+        checkProperty(prop)
+        rootProject.ext.set(prop, prop)
+    }
+}
+
+def checkProperty(prop) {
+    if (!project.hasProperty(prop)) {
+        logger.warn("Add " + prop + " to your ~/.gradle/gradle.properties file.")
+    }
+}
+
+def isReleaseBuild() {
+    return !PROP_VERSION_NAME.contains("SNAPSHOT")
+}
+
+def getReleaseRepositoryUrl() {
+    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
+        : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+}
+
+def getSnapshotRepositoryUrl() {
+    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
+        : "https://oss.sonatype.org/content/repositories/snapshots/"
+}
+
+def getRepositoryUsername() {
+    return hasProperty('SONATYPE_NEXUS_USERNAME') ? SONATYPE_NEXUS_USERNAME : ""
+}
+
+def getRepositoryPassword() {
+    return hasProperty('SONATYPE_NEXUS_PASSWORD') ? SONATYPE_NEXUS_PASSWORD : ""
+}
+
+
+def isAndroid = getPlugins().hasPlugin('com.android.library')
+def component = isAndroid ? components.android : components.java
+if (isAndroid) {
+
+    apply plugin: 'org.jetbrains.dokka-android'
+    dokka {
+        outputFormat = 'javadoc'
+    }
+
+    task javadocJar(type: Jar, dependsOn: dokka) {
+        from dokka.outputDirectory
+        classifier = 'javadoc'
+    }
+
+    task sourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier = 'sources'
+    }
+} else {
+
+    apply plugin: 'org.jetbrains.dokka'
+    dokka {
+        outputFormat = 'javadoc'
+    }
+
+    task javadocJar(type: Jar, dependsOn: dokka) {
+        classifier = 'javadoc'
+        from dokka.outputDirectory
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from component
+            artifact sourcesJar
+            artifact javadocJar
+
+            groupId PROP_GROUP
+            artifactId PROP_ARTIFACT_ID
+            version PROP_VERSION_NAME
+
+            pom {
+                name = PROP_NAME
+                packaging = PROP_PACKAGING
+                description = PROP_DESCRIPTION
+                url = PROP_URL
+
+                scm {
+                    url = PROP_SCM_URL
+                    connection = PROP_SCM_CONNECTION
+                    developerConnection = PROP_SCM_DEV_CONNECTION
+                }
+
+                licenses {
+                    license {
+                        name = PROP_LICENCE_NAME
+                        url = PROP_LICENCE_URL
+                        distribution = PROP_LICENCE_DIST
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = PROP_DEVELOPER_ID
+                        name = PROP_DEVELOPER_NAME
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name 'snapshot'
+            url getSnapshotRepositoryUrl()
+            credentials {
+                username = getRepositoryUsername()
+                password = getRepositoryPassword()
+            }
+        }
+
+        maven {
+            name 'release'
+            url getReleaseRepositoryUrl()
+            credentials {
+                username = getRepositoryUsername()
+                password = getRepositoryPassword()
+            }
+        }
+    }
+}
+
+signing {
+    required { isReleaseBuild() }
+    sign publishing.publications.maven
+}
+
+
+publishMavenPublicationToReleaseRepository.doFirst {
+    if (!isReleaseBuild()) {
+        throw new GradleException("Release build version should not end with 'SNAPSHOT'.")
+    }
+}
+
+publishMavenPublicationToSnapshotRepository.doFirst {
+    if (isReleaseBuild()) {
+        throw new GradleException("Snapshot build version should end with 'SNAPSHOT'.")
+    }
+}

@@ -15,3 +15,5 @@ dependencies {
     api project(":core")
     lintChecks project(":lint")
 }
+
+apply from: rootProject.file("gradle/maven_publish.gradle")
