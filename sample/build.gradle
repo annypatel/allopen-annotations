@@ -1,0 +1,24 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-allopen'
+
+allOpen {
+    annotation("allopen.annotations.Open")
+}
+
+android {
+    compileSdkVersion buildConfig.compileSdk
+    defaultConfig {
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
+        applicationId "allopen.annotations.sample"
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+dependencies {
+    implementation deps.kotlin
+    debugImplementation project(":all-open")
+    releaseImplementation project(":none-open")
+}
