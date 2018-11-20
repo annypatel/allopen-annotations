@@ -1,0 +1,56 @@
+version: 2
+
+cache_key: &cache_key
+  key: jars-{{ checksum "build.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+
+jobs:
+  build:
+    working_directory: ~/allopen-annotations
+
+    docker:
+    - image: circleci/android:api-28-alpha
+
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:
+    - checkout
+
+    - restore_cache:
+        <<: *cache_key
+
+    - run:
+        name: Download Dependencies
+        command: ./gradlew androidDependencies
+
+    - run:
+        name: Run Tests
+        command: ./gradlew check dependencyUpdates
+
+    - run:
+        name: Copy Test Results
+        command: .circleci/store_artifact.sh ".*/build/test-results/.*xml" ~/test-results/
+
+    - run:
+        name: Copy Lint Reports
+        command: .circleci/store_artifact.sh ".*/build/reports/lint-results.xml" ~/lint-reports/
+
+    - run:
+        name: Copy Dependency Reports
+        command: .circleci/store_artifact.sh ".*/build/dependencyUpdates/report.txt" ~/dependency-reports/
+
+    - store_test_results:
+        path: ~/test-results
+    - store_artifacts:
+        path: ~/test-results
+    - store_artifacts:
+        path: ~/lint-reports
+    - store_artifacts:
+        path: ~/dependency-reports
+
+    - save_cache:
+        <<: *cache_key
+        paths:
+        - ~/.gradle/caches
+        - ~/.gradle/wrapper
