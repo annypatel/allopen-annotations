@@ -14,11 +14,18 @@ buildscript {
         'spotless': '3.16.0',
         'ktlint'  : '0.29.0',
         'gvp'     : '0.20.0',
+        'lint'    : '26.2.1',
+        'junit'   : '4.12'
     ]
 
     // Dependencies
     ext.deps = [
-        'kotlin': "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+        'kotlin': "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin",
+        'lint'  : [
+            'api' : "com.android.tools.lint:lint-api:$versions.lint",
+            'test': "com.android.tools.lint:lint-tests:$versions.lint"
+        ],
+        'junit' : "junit:junit:$versions.junit"
     ]
 
     repositories {

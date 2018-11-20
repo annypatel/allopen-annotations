@@ -1,0 +1,16 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+jar {
+    manifest {
+        attributes('Lint-Registry-v2': 'allopen.lint.AllOpenIssueRegistry')
+    }
+}
+
+dependencies {
+    compileOnly deps.kotlin
+    compileOnly deps.lint.api
+
+    testImplementation deps.junit
+    testImplementation deps.lint.test
+}
