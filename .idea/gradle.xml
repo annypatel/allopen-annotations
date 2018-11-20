@@ -8,7 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/all-open" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/none-open" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
