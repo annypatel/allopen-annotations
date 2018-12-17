@@ -24,5 +24,6 @@ class AllOpenIssueRegistryTest {
 
         assertThat(issues, hasItem(TestOnlyOpenDetector.TYPE_USAGE))
         assertThat(issues, hasItem(TestOnlyOpenDetector.INHERITANCE_USAGE))
+        assertThat(issues, hasItem(OpenDetector.ISSUE))
     }
 }

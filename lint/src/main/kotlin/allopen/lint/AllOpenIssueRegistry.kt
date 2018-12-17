@@ -14,6 +14,7 @@ class AllOpenIssueRegistry : IssueRegistry() {
     override val issues: List<Issue>
         get() = listOf(
             TestOnlyOpenDetector.TYPE_USAGE,
-            TestOnlyOpenDetector.INHERITANCE_USAGE
+            TestOnlyOpenDetector.INHERITANCE_USAGE,
+            OpenDetector.ISSUE
         )
 }
