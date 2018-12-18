@@ -15,6 +15,7 @@ class AllOpenIssueRegistry : IssueRegistry() {
         get() = listOf(
             TestOnlyOpenDetector.TYPE_USAGE,
             TestOnlyOpenDetector.INHERITANCE_USAGE,
+            TestOnlyOpenGradleDetector.ISSUE,
             OpenDetector.ISSUE
         )
 }

@@ -1,6 +1,7 @@
 package allopen.lint
 
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest.TestFile
+import com.android.tools.lint.checks.infrastructure.LintDetectorTest.gradle
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest.java
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest.kotlin
 
@@ -66,5 +67,27 @@ fun leopard(): TestFile = kotlin(
     "java/Leopard.kt",
     """
     |class Leopard
+    """.trimMargin()
+)
+
+fun allOpenBuildScript(): TestFile = gradle(
+    "build.gradle",
+    """
+    |apply plugin: 'kotlin-allopen'
+    |
+    |allOpen {
+    |    annotation("allopen.annotations.Open")
+    |}
+    """.trimMargin()
+)
+
+fun allTestOnlyOpenBuildScript(): TestFile = gradle(
+    "build.gradle",
+    """
+    |apply plugin: 'kotlin-allopen'
+    |
+    |allOpen {
+    |    annotation("allopen.annotations.TestOnlyOpen")
+    |}
     """.trimMargin()
 )
