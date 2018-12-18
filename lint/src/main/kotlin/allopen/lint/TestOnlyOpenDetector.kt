@@ -24,9 +24,6 @@ class TestOnlyOpenDetector : Detector(), SourceCodeScanner {
 
     companion object {
 
-        private const val TEST_ONLY_OPEN = "TestOnlyOpen"
-        private const val FQCN_TEST_ONLY_OPEN = "allopen.annotations.$TEST_ONLY_OPEN"
-
         private val IMPLEMENTATION = Implementation(
             TestOnlyOpenDetector::class.java,
             Scope.JAVA_FILE_SCOPE

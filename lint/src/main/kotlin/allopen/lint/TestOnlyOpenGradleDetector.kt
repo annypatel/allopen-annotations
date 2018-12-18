@@ -13,10 +13,6 @@ import com.android.tools.lint.detector.api.Severity
 class TestOnlyOpenGradleDetector : Detector(), GradleScanner {
 
     companion object {
-        private const val OPEN = "Open"
-        private const val FQCN_OPEN = "allopen.annotations.$OPEN"
-        private const val TEST_ONLY_OPEN = "TestOnlyOpen"
-        private const val FQCN_TEST_ONLY_OPEN = "allopen.annotations.$TEST_ONLY_OPEN"
 
         private val IMPLEMENTATION = Implementation(
             TestOnlyOpenGradleDetector::class.java,

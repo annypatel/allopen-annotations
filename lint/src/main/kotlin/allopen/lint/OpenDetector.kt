@@ -19,10 +19,6 @@ class OpenDetector : Detector(), SourceCodeScanner {
 
     companion object {
 
-        private const val OPEN = "Open"
-        private const val FQCN_OPEN = "allopen.annotations.$OPEN"
-        private const val TEST_ONLY_OPEN = "TestOnlyOpen"
-
         private val IMPLEMENTATION = Implementation(
             OpenDetector::class.java,
             Scope.JAVA_FILE_SCOPE
