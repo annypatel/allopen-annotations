@@ -17,17 +17,6 @@ fun testOnlyOpen(): TestFile = kotlin(
     """.trimMargin()
 )
 
-fun open(): TestFile = kotlin(
-    "java/allopen/annotations/Open.kt",
-    """
-    |package allopen.annotations
-    |
-    |@Target(AnnotationTarget.CLASS)
-    |@Retention(AnnotationRetention.RUNTIME)
-    |annotation class Open
-    """.trimMargin()
-)
-
 fun pet(): TestFile = kotlin(
     "java/Pet.kt",
     """
@@ -50,23 +39,6 @@ fun wolf(): TestFile = java(
     """
     |public class Wolf extends Pet {
     |}
-    """.trimMargin()
-)
-
-fun lion(): TestFile = kotlin(
-    "java/Lion.kt",
-    """
-    |import allopen.annotations.Open
-    |
-    |@Open
-    |class Lion
-    """.trimMargin()
-)
-
-fun leopard(): TestFile = kotlin(
-    "java/Leopard.kt",
-    """
-    |class Leopard
     """.trimMargin()
 )
 
