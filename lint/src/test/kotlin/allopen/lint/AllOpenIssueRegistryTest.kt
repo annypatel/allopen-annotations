@@ -1,5 +1,6 @@
 package allopen.lint
 
+import com.android.tools.lint.detector.api.CURRENT_API
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItem
 import org.junit.Assert.assertThat
@@ -13,7 +14,7 @@ class AllOpenIssueRegistryTest {
 
         val api = registry.api
 
-        assertThat(api, equalTo(3))
+        assertThat(api, equalTo(CURRENT_API))
     }
 
     @Test

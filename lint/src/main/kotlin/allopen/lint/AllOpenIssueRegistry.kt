@@ -1,6 +1,7 @@
 package allopen.lint
 
 import com.android.tools.lint.client.api.IssueRegistry
+import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
 
 /**
@@ -9,7 +10,7 @@ import com.android.tools.lint.detector.api.Issue
 class AllOpenIssueRegistry : IssueRegistry() {
 
     override val api: Int
-        get() = 3
+        get() = CURRENT_API
 
     override val issues: List<Issue>
         get() = listOf(
