@@ -13,6 +13,6 @@ package allopen.annotations
  * }
  * ```
  */
-@Target(AnnotationTarget.CLASS)
+@Target(AnnotationTarget.ANNOTATION_CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Open
