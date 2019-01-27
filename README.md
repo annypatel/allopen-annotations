@@ -26,13 +26,13 @@ This is because all classes are final by default in Kotlin. To fix this problem 
 Add following dependency to your `build.gradle`.
 
 ```groovy
-implementation 'com.github.annypatel.allopen-annotations:all-open:x.x.x'
+implementation 'com.github.annypatel.allopen-annotations:all-open:1.0.0'
 ```
 If you want class to be opened only for debug build and not for release, then add following dependencies to your `build.gradle`.
 
 ```groovy
-debugImplementation 'com.github.annypatel.allopen-annotations:all-open:x.x.x'
-releaseImplementation 'com.github.annypatel.allopen-annotations:none-open:x.x.x'
+debugImplementation 'com.github.annypatel.allopen-annotations:all-open:1.0.0'
+releaseImplementation 'com.github.annypatel.allopen-annotations:none-open:1.0.0'
 ```
 
 Configure `all-open` compiler plugin in you project.
