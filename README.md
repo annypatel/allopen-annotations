@@ -1,6 +1,8 @@
 # allopen-annotations
 
-[![CircleCI](https://circleci.com/gh/annypatel/allopen-annotations.svg?style=shield)](https://circleci.com/gh/annypatel/allopen-annotations)
+[![CircleCI](https://img.shields.io/circleci/project/github/annypatel/allopen-annotations/master.svg)](https://circleci.com/gh/annypatel/allopen-annotations)
+[![Release](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/github/annypatel/allopen-annotations/all-open/maven-metadata.xml.svg?label=release)](https://search.maven.org/search?q=g:com.github.annypatel.allopen-annotations)
+![License](https://img.shields.io/github/license/annypatel/allopen-annotations.svg)
 
 ## Why?
 If you try to mock class in Kotlin you will get following error.
