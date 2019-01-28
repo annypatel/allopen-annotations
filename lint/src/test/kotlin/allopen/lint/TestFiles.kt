@@ -12,7 +12,7 @@ fun testOnlyOpen(): TestFile = kotlin(
     |
     |@Open
     |@Target(AnnotationTarget.CLASS)
-    |@Retention(AnnotationRetention.RUNTIME)
+    |@Retention(AnnotationRetention.SOURCE)
     |annotation class TestOnlyOpen
     """.trimMargin()
 )
