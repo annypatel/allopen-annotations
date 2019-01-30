@@ -90,7 +90,3 @@ class Pet
 	    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	1 errors, 0 warnings
 	```
-	
-## License
-
-[Apache](https://github.com/annypatel/allopen-annotations/blob/master/LICENSE)
