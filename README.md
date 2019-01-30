@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/github/license/annypatel/allopen-annotations.svg)
 
 ## Why?
-If you try to mock class in Kotlin you will get following error.
+If you try to mock class in Kotlin, you will get following error.
 
 ```
 org.mockito.exceptions.base.MockitoException:
@@ -13,7 +13,7 @@ Cannot mock/spy class com.example.SomeClass
 Mockito cannot mock/spy because :
 - final class
 ```
-This is because all classes are final by default in Kotlin. To fix this problem you can use one of the following approach.
+This is because all classes are final by default in Kotlin. To fix this problem, you can use one of the following approach.
 
 
 **Option 1** - Make class and member function `open` explicitly.
